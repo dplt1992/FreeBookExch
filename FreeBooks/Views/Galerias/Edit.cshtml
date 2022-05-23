@@ -1,4 +1,4 @@
-@model FreeBooks.Models.Galerias
+﻿@model FreeBooks.Models.Galerias
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,6 +13,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdGaleria" />
+            <div class="form-group">
+                <label asp-for="LivroFk" class="control-label"></label>
+                <select asp-for="LivroFk" class="form-control" asp-items="ViewBag.LivroFk"></select>
+                <span asp-validation-for="LivroFk" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

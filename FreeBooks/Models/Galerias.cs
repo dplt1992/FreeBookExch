@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FreeBooks.Models
 {
@@ -8,7 +9,6 @@ namespace FreeBooks.Models
         public Galerias()
         {
             Fotos = new HashSet<Fotos>();
-            Livros = new HashSet<Livros>();
         }
 
 
@@ -28,10 +28,12 @@ namespace FreeBooks.Models
         public ICollection<Fotos> Fotos { get; set; }
 
         /// <summary>
-        /// Lista dos Livros aos quais a Galeria pertence
+        /// Ligaçao ao livro ao qual pertence
         /// </summary>
-        [Display(Name = "Lista de Livros")]
-        public ICollection<Livros> Livros { get; set; }
+        [Display(Name = "Fk Livro")]
+        [ForeignKey(nameof(Livro))]
+        public int LivroFk { get; set; }
+        public Livros Livro { get; set; }
 
     }
 }

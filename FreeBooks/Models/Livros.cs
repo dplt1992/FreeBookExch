@@ -6,6 +6,10 @@ namespace FreeBooks.Models
 {
     public class Livros
     {
+        public Livros()
+        {
+            Galerias = new HashSet<Galerias>();
+        }
         [Key]
         [Display(Name = "Id Livro")]
         //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
@@ -57,12 +61,10 @@ namespace FreeBooks.Models
         public Ofertas Oferta { get; set; }
 
         /// <summary>
-        /// Ligaçãoc com a Galeria do Livro
+        /// Lista das Galerias do Livro
         /// </summary>
-        [Display(Name = "Fk Galeria")]
-        [ForeignKey(nameof(Galeria))]
-        public int GaleriaFk { get; set; }
-        public Galerias Galeria { get; set; }
+        [Display(Name = "Lista de Galerias")]
+        public ICollection<Galerias> Galerias { get; set; }
     }
 }
 

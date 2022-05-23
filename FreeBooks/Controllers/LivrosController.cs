@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +22,7 @@ namespace FreeBooks.Controllers
         // GET: Livros
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Livros.Include(l => l.Anuncio).Include(l => l.Galeria).Include(l => l.Oferta);
+            var applicationDbContext = _context.Livros.Include(l => l.Anuncio).Include(l => l.Oferta);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace FreeBooks.Controllers
 
             var livros = await _context.Livros
                 .Include(l => l.Anuncio)
-                .Include(l => l.Galeria)
                 .Include(l => l.Oferta)
                 .FirstOrDefaultAsync(m => m.IdLivro == id);
             if (livros == null)
@@ -51,7 +50,6 @@ namespace FreeBooks.Controllers
         public IActionResult Create()
         {
             ViewData["AnuncioFK"] = new SelectList(_context.Anuncios, "IdAnuncio", "IdAnuncio");
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria");
             ViewData["OfertaFK"] = new SelectList(_context.Ofertas, "IdOferta", "IdOferta");
             return View();
         }
@@ -61,7 +59,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK,GaleriaFk")] Livros livros)
+        public async Task<IActionResult> Create([Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK")] Livros livros)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +68,6 @@ namespace FreeBooks.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AnuncioFK"] = new SelectList(_context.Anuncios, "IdAnuncio", "IdAnuncio", livros.AnuncioFK);
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", livros.GaleriaFk);
             ViewData["OfertaFK"] = new SelectList(_context.Ofertas, "IdOferta", "IdOferta", livros.OfertaFK);
             return View(livros);
         }
@@ -89,7 +86,6 @@ namespace FreeBooks.Controllers
                 return NotFound();
             }
             ViewData["AnuncioFK"] = new SelectList(_context.Anuncios, "IdAnuncio", "IdAnuncio", livros.AnuncioFK);
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", livros.GaleriaFk);
             ViewData["OfertaFK"] = new SelectList(_context.Ofertas, "IdOferta", "IdOferta", livros.OfertaFK);
             return View(livros);
         }
@@ -99,7 +95,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK,GaleriaFk")] Livros livros)
+        public async Task<IActionResult> Edit(int id, [Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK")] Livros livros)
         {
             if (id != livros.IdLivro)
             {
@@ -127,7 +123,6 @@ namespace FreeBooks.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AnuncioFK"] = new SelectList(_context.Anuncios, "IdAnuncio", "IdAnuncio", livros.AnuncioFK);
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", livros.GaleriaFk);
             ViewData["OfertaFK"] = new SelectList(_context.Ofertas, "IdOferta", "IdOferta", livros.OfertaFK);
             return View(livros);
         }
@@ -142,7 +137,6 @@ namespace FreeBooks.Controllers
 
             var livros = await _context.Livros
                 .Include(l => l.Anuncio)
-                .Include(l => l.Galeria)
                 .Include(l => l.Oferta)
                 .FirstOrDefaultAsync(m => m.IdLivro == id);
             if (livros == null)

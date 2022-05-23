@@ -4,6 +4,7 @@ using FreeBooks.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreeBooks.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220523133306_teste1")]
+    partial class teste1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,12 +97,7 @@ namespace FreeBooks.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGaleria"), 1L, 1);
 
-                    b.Property<int>("LivroFk")
-                        .HasColumnType("int");
-
                     b.HasKey("IdGaleria");
-
-                    b.HasIndex("LivroFk");
 
                     b.ToTable("Galerias");
                 });
@@ -129,6 +126,9 @@ namespace FreeBooks.Data.Migrations
                     b.Property<string>("Editora")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GaleriaFk")
+                        .HasColumnType("int");
+
                     b.Property<int?>("OfertaFK")
                         .HasColumnType("int");
 
@@ -139,6 +139,8 @@ namespace FreeBooks.Data.Migrations
                     b.HasKey("IdLivro");
 
                     b.HasIndex("AnuncioFK");
+
+                    b.HasIndex("GaleriaFk");
 
                     b.HasIndex("OfertaFK");
 
@@ -453,28 +455,25 @@ namespace FreeBooks.Data.Migrations
                     b.Navigation("Galeria");
                 });
 
-            modelBuilder.Entity("FreeBooks.Models.Galerias", b =>
-                {
-                    b.HasOne("FreeBooks.Models.Livros", "Livro")
-                        .WithMany("Galerias")
-                        .HasForeignKey("LivroFk")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Livro");
-                });
-
             modelBuilder.Entity("FreeBooks.Models.Livros", b =>
                 {
                     b.HasOne("FreeBooks.Models.Anuncios", "Anuncio")
                         .WithMany("Livros")
                         .HasForeignKey("AnuncioFK");
 
+                    b.HasOne("FreeBooks.Models.Galerias", "Galeria")
+                        .WithMany("Livros")
+                        .HasForeignKey("GaleriaFk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FreeBooks.Models.Ofertas", "Oferta")
                         .WithMany("Livros")
                         .HasForeignKey("OfertaFK");
 
                     b.Navigation("Anuncio");
+
+                    b.Navigation("Galeria");
 
                     b.Navigation("Oferta");
                 });
@@ -565,11 +564,8 @@ namespace FreeBooks.Data.Migrations
             modelBuilder.Entity("FreeBooks.Models.Galerias", b =>
                 {
                     b.Navigation("Fotos");
-                });
 
-            modelBuilder.Entity("FreeBooks.Models.Livros", b =>
-                {
-                    b.Navigation("Galerias");
+                    b.Navigation("Livros");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Ofertas", b =>

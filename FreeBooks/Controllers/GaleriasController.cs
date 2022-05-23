@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +22,8 @@ namespace FreeBooks.Controllers
         // GET: Galerias
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Galerias.ToListAsync());
+            var applicationDbContext = _context.Galerias.Include(g => g.Livro);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Galerias/Details/5
@@ -34,6 +35,7 @@ namespace FreeBooks.Controllers
             }
 
             var galerias = await _context.Galerias
+                .Include(g => g.Livro)
                 .FirstOrDefaultAsync(m => m.IdGaleria == id);
             if (galerias == null)
             {
@@ -46,6 +48,7 @@ namespace FreeBooks.Controllers
         // GET: Galerias/Create
         public IActionResult Create()
         {
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdGaleria")] Galerias galerias)
+        public async Task<IActionResult> Create([Bind("IdGaleria,LivroFk")] Galerias galerias)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace FreeBooks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
             return View(galerias);
         }
 
@@ -78,6 +82,7 @@ namespace FreeBooks.Controllers
             {
                 return NotFound();
             }
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
             return View(galerias);
         }
 
@@ -86,7 +91,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdGaleria")] Galerias galerias)
+        public async Task<IActionResult> Edit(int id, [Bind("IdGaleria,LivroFk")] Galerias galerias)
         {
             if (id != galerias.IdGaleria)
             {
@@ -113,6 +118,7 @@ namespace FreeBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
             return View(galerias);
         }
 
@@ -125,6 +131,7 @@ namespace FreeBooks.Controllers
             }
 
             var galerias = await _context.Galerias
+                .Include(g => g.Livro)
                 .FirstOrDefaultAsync(m => m.IdGaleria == id);
             if (galerias == null)
             {
