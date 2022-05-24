@@ -1,4 +1,4 @@
-@model FreeBooks.Models.Fotos
+﻿@model FreeBooks.Models.Fotos
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,12 +13,9 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdFoto" />
-            
             <div class="form-group">
                 <label asp-for="Foto" class="control-label"></label>
-                @*<input asp-for="Foto" class="form-control" />*@
-
-                <input type  = "file" name="newFoto" class="form-control"  />
+                <input asp-for="Foto" class="form-control" />
                 <span asp-validation-for="Foto" class="text-danger"></span>
             </div>
             <div class="form-group">

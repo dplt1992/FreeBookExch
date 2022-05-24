@@ -24,7 +24,7 @@ namespace FreeBooks.Models
         /// Descrição a oferta
         /// </summary>
         [StringLength(100, ErrorMessage = "Não pode ter mais do que {1} caráteres.")]
-        [RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
+        //[RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
         [Display(Name = "Nome")]
         public string Descricao { get; set; }
 

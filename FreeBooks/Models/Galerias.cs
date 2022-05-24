@@ -22,18 +22,19 @@ namespace FreeBooks.Models
 
 
         /// <summary>
+        /// Ligação da Galeria ao Livro ao qual esta pertence
+        /// </summary>
+        [Display(Name = "Fk Livro")]
+        [ForeignKey(nameof(Livro))]
+        public int LivroFK { get; set; }
+        public Livros Livro { get; set; }
+
+
+        /// <summary>
         /// Lista das Fotos contidas na Galeria
         /// </summary>
         [Display(Name = "Lista de Fotos")]
         public ICollection<Fotos> Fotos { get; set; }
-
-        /// <summary>
-        /// Ligaçao ao livro ao qual pertence
-        /// </summary>
-        [Display(Name = "Fk Livro")]
-        [ForeignKey(nameof(Livro))]
-        public int LivroFk { get; set; }
-        public Livros Livro { get; set; }
 
     }
 }

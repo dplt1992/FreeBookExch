@@ -6,10 +6,6 @@ namespace FreeBooks.Models
 {
     public class Livros
     {
-        public Livros()
-        {
-            Galerias = new HashSet<Galerias>();
-        }
         [Key]
         [Display(Name = "Id Livro")]
         //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]

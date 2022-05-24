@@ -48,7 +48,7 @@ namespace FreeBooks.Controllers
         // GET: Galerias/Create
         public IActionResult Create()
         {
-            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro");
+            ViewData["LivroFK"] = new SelectList(_context.Livros, "IdLivro", "IdLivro");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdGaleria,LivroFk")] Galerias galerias)
+        public async Task<IActionResult> Create([Bind("IdGaleria,LivroFK")] Galerias galerias)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace FreeBooks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
+            ViewData["LivroFK"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFK);
             return View(galerias);
         }
 
@@ -82,7 +82,7 @@ namespace FreeBooks.Controllers
             {
                 return NotFound();
             }
-            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
+            ViewData["LivroFK"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFK);
             return View(galerias);
         }
 
@@ -91,7 +91,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdGaleria,LivroFk")] Galerias galerias)
+        public async Task<IActionResult> Edit(int id, [Bind("IdGaleria,LivroFK")] Galerias galerias)
         {
             if (id != galerias.IdGaleria)
             {
@@ -118,7 +118,7 @@ namespace FreeBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFk);
+            ViewData["LivroFK"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", galerias.LivroFK);
             return View(galerias);
         }
 
