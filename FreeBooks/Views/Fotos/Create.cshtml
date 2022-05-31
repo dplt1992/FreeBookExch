@@ -1,4 +1,4 @@
-﻿@model FreeBooks.Models.Fotos
+﻿@model FreeBooks.Models.FotosView
 
 @{
     ViewData["Title"] = "Create";
@@ -13,16 +13,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Foto" class="control-label"></label>
+                <label asp-for="ListaFotos" class="control-label"></label>
                 @*<input asp-for="Foto" class="form-control" />*@
 
-                <input type="file" name="newFoto" class="form-control" accept=".jpg, .png"  />
+                <input multiple type="file" name="newFoto" class="form-control" accept=".jpg, .png"  />
 
-                <span asp-validation-for="Foto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GaleriaFk" class="control-label"></label>
-                <select asp-for="GaleriaFk" class ="form-control" asp-items="ViewBag.GaleriaFk"></select>
+                <span asp-validation-for="ListaFotos" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -38,3 +34,27 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+@*
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Foto" class="control-label"></label>
+                <input asp-for="Foto" class="form-control" />
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GaleriaFk" class="control-label"></label>
+                <select asp-for="GaleriaFk" class ="form-control" asp-items="ViewBag.GaleriaFk"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+*@

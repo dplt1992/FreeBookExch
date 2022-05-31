@@ -1,0 +1,9 @@
+﻿@model FreeBooks.Models.Fotos;
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="form-group">
+    <label asp-for="GaleriaFk" class="control-label"></label>
+    <select asp-for="GaleriaFk" class ="form-control" asp-items="ViewBag.GaleriaFk"></select>
+</div>
