@@ -22,13 +22,13 @@ namespace FreeBooks.Models
         public string Foto { get; set; }
 
         /// <summary>
-        /// Ligação da Foto com a Galeria a que pertence
+        /// Referência para a classe Livros
         /// </summary>
         //[Required]
-        [Display(Name = "Fk Galeria")]
-        [ForeignKey(nameof(Galeria))]
-        public int GaleriaFk { get; set; }
-        public Galerias Galeria { get; set; }
+        [Display(Name = "Fk Livros")]
+        [ForeignKey(nameof(Livros))]
+        public int LivroFK { get; set; }
+        public Livros Livros { get; set; }
     }
 }
 

@@ -13,7 +13,6 @@ namespace FreeBooks.Data
         // adicionar tabelas a Base de Dados
         public DbSet<Utilizadores> Utilizadores { get; set; }
         public DbSet<Fotos> Fotos { get; set; }
-        public DbSet<Galerias> Galerias { get; set; }
         public DbSet<Livros> Livros { get; set; }
         public DbSet<Ofertas> Ofertas { get; set; }
         public DbSet<Anuncios> Anuncios { get; set; }

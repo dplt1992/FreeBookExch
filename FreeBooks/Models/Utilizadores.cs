@@ -29,14 +29,6 @@ namespace FreeBooks.Models
         public string UserName { get; set; }
 
         /// <summary>
-        /// Password do Utilizador
-        /// </summary>
-        //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
-        [StringLength(50, MinimumLength = 8, ErrorMessage = "A {1} deve conter no minimo carateres no {0}.")]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
-
-        /// <summary>
         /// Email do Utilizador
         /// </summary>
         //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
@@ -65,9 +57,6 @@ namespace FreeBooks.Models
         /// </summary>
         [Display(Name = "Lista de Ofertas")]
         public ICollection<Ofertas> Ofertas { get; set; }
-
-
-
 
     }
 }

@@ -51,15 +51,10 @@ namespace FreeBooks.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("TransacaoFk")
-                        .HasColumnType("int");
-
                     b.Property<int>("UtilizadorFk")
                         .HasColumnType("int");
 
                     b.HasKey("IdAnuncio");
-
-                    b.HasIndex("TransacaoFk");
 
                     b.HasIndex("UtilizadorFk");
 
@@ -77,27 +72,14 @@ namespace FreeBooks.Data.Migrations
                     b.Property<string>("Foto")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GaleriaFk")
+                    b.Property<int>("LivroFK")
                         .HasColumnType("int");
 
                     b.HasKey("IdFoto");
 
-                    b.HasIndex("GaleriaFk");
+                    b.HasIndex("LivroFK");
 
                     b.ToTable("Fotos");
-                });
-
-            modelBuilder.Entity("FreeBooks.Models.Galerias", b =>
-                {
-                    b.Property<int>("IdGaleria")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdGaleria"), 1L, 1);
-
-                    b.HasKey("IdGaleria");
-
-                    b.ToTable("Galerias");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Livros", b =>
@@ -124,9 +106,6 @@ namespace FreeBooks.Data.Migrations
                     b.Property<string>("Editora")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GaleriaFk")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OfertaFK")
                         .HasColumnType("int");
 
@@ -137,8 +116,6 @@ namespace FreeBooks.Data.Migrations
                     b.HasKey("IdLivro");
 
                     b.HasIndex("AnuncioFK");
-
-                    b.HasIndex("GaleriaFk");
 
                     b.HasIndex("OfertaFK");
 
@@ -160,17 +137,12 @@ namespace FreeBooks.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("TransacaoFk")
-                        .HasColumnType("int");
-
                     b.Property<int>("UtilizadorFk")
                         .HasColumnType("int");
 
                     b.HasKey("IdOferta");
 
                     b.HasIndex("AnuncioFk");
-
-                    b.HasIndex("TransacaoFk");
 
                     b.HasIndex("UtilizadorFk");
 
@@ -185,10 +157,20 @@ namespace FreeBooks.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTransacao"), 1L, 1);
 
+                    b.Property<int?>("AnuncioFK")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataTrasancao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("OfertaFk")
+                        .HasColumnType("int");
+
                     b.HasKey("IdTransacao");
+
+                    b.HasIndex("AnuncioFK");
+
+                    b.HasIndex("OfertaFk");
 
                     b.ToTable("Transacoes");
                 });
@@ -206,10 +188,6 @@ namespace FreeBooks.Data.Migrations
 
                     b.Property<string>("Foto")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("TipoUtilizador")
                         .HasColumnType("nvarchar(max)");
@@ -427,30 +405,24 @@ namespace FreeBooks.Data.Migrations
 
             modelBuilder.Entity("FreeBooks.Models.Anuncios", b =>
                 {
-                    b.HasOne("FreeBooks.Models.Transacoes", "Transacao")
-                        .WithMany("Anuncios")
-                        .HasForeignKey("TransacaoFk");
-
                     b.HasOne("FreeBooks.Models.Utilizadores", "Utilizador")
                         .WithMany("Anuncios")
                         .HasForeignKey("UtilizadorFk")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Transacao");
-
                     b.Navigation("Utilizador");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Fotos", b =>
                 {
-                    b.HasOne("FreeBooks.Models.Galerias", "Galeria")
+                    b.HasOne("FreeBooks.Models.Livros", "Livros")
                         .WithMany("Fotos")
-                        .HasForeignKey("GaleriaFk")
+                        .HasForeignKey("LivroFK")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Galeria");
+                    b.Navigation("Livros");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Livros", b =>
@@ -459,19 +431,11 @@ namespace FreeBooks.Data.Migrations
                         .WithMany("Livros")
                         .HasForeignKey("AnuncioFK");
 
-                    b.HasOne("FreeBooks.Models.Galerias", "Galeria")
-                        .WithMany("Livros")
-                        .HasForeignKey("GaleriaFk")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FreeBooks.Models.Ofertas", "Oferta")
                         .WithMany("Livros")
                         .HasForeignKey("OfertaFK");
 
                     b.Navigation("Anuncio");
-
-                    b.Navigation("Galeria");
 
                     b.Navigation("Oferta");
                 });
@@ -484,10 +448,6 @@ namespace FreeBooks.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FreeBooks.Models.Transacoes", "Transacao")
-                        .WithMany("Ofertas")
-                        .HasForeignKey("TransacaoFk");
-
                     b.HasOne("FreeBooks.Models.Utilizadores", "Utilizador")
                         .WithMany("Ofertas")
                         .HasForeignKey("UtilizadorFk")
@@ -496,9 +456,22 @@ namespace FreeBooks.Data.Migrations
 
                     b.Navigation("Anuncio");
 
-                    b.Navigation("Transacao");
-
                     b.Navigation("Utilizador");
+                });
+
+            modelBuilder.Entity("FreeBooks.Models.Transacoes", b =>
+                {
+                    b.HasOne("FreeBooks.Models.Anuncios", "Anuncios")
+                        .WithMany("Transacoes")
+                        .HasForeignKey("AnuncioFK");
+
+                    b.HasOne("FreeBooks.Models.Ofertas", "Ofertas")
+                        .WithMany("Transacoes")
+                        .HasForeignKey("OfertaFk");
+
+                    b.Navigation("Anuncios");
+
+                    b.Navigation("Ofertas");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -557,25 +530,20 @@ namespace FreeBooks.Data.Migrations
                     b.Navigation("Livros");
 
                     b.Navigation("Ofertas");
+
+                    b.Navigation("Transacoes");
                 });
 
-            modelBuilder.Entity("FreeBooks.Models.Galerias", b =>
+            modelBuilder.Entity("FreeBooks.Models.Livros", b =>
                 {
                     b.Navigation("Fotos");
-
-                    b.Navigation("Livros");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Ofertas", b =>
                 {
                     b.Navigation("Livros");
-                });
 
-            modelBuilder.Entity("FreeBooks.Models.Transacoes", b =>
-                {
-                    b.Navigation("Anuncios");
-
-                    b.Navigation("Ofertas");
+                    b.Navigation("Transacoes");
                 });
 
             modelBuilder.Entity("FreeBooks.Models.Utilizadores", b =>

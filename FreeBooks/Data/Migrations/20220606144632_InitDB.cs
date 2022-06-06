@@ -10,38 +10,12 @@ namespace FreeBooks.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Galerias",
-                columns: table => new
-                {
-                    IdGaleria = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Galerias", x => x.IdGaleria);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Transacoes",
-                columns: table => new
-                {
-                    IdTransacao = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DataTrasancao = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Transacoes", x => x.IdTransacao);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Utilizadores",
                 columns: table => new
                 {
                     IdUser = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TipoUtilizador = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -49,26 +23,6 @@ namespace FreeBooks.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Utilizadores", x => x.IdUser);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fotos",
-                columns: table => new
-                {
-                    IdFoto = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GaleriaFk = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fotos", x => x.IdFoto);
-                    table.ForeignKey(
-                        name: "FK_Fotos_Galerias_GaleriaFk",
-                        column: x => x.GaleriaFk,
-                        principalTable: "Galerias",
-                        principalColumn: "IdGaleria",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -83,17 +37,11 @@ namespace FreeBooks.Data.Migrations
                     Estado = table.Column<bool>(type: "bit", nullable: false),
                     DataLancamento = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataExpiracao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UtilizadorFk = table.Column<int>(type: "int", nullable: false),
-                    TransacaoFk = table.Column<int>(type: "int", nullable: true)
+                    UtilizadorFk = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Anuncios", x => x.IdAnuncio);
-                    table.ForeignKey(
-                        name: "FK_Anuncios_Transacoes_TransacaoFk",
-                        column: x => x.TransacaoFk,
-                        principalTable: "Transacoes",
-                        principalColumn: "IdTransacao");
                     table.ForeignKey(
                         name: "FK_Anuncios_Utilizadores_UtilizadorFk",
                         column: x => x.UtilizadorFk,
@@ -110,8 +58,7 @@ namespace FreeBooks.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descricao = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     AnuncioFk = table.Column<int>(type: "int", nullable: false),
-                    UtilizadorFk = table.Column<int>(type: "int", nullable: false),
-                    TransacaoFk = table.Column<int>(type: "int", nullable: true)
+                    UtilizadorFk = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,18 +68,13 @@ namespace FreeBooks.Data.Migrations
                         column: x => x.AnuncioFk,
                         principalTable: "Anuncios",
                         principalColumn: "IdAnuncio",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Ofertas_Transacoes_TransacaoFk",
-                        column: x => x.TransacaoFk,
-                        principalTable: "Transacoes",
-                        principalColumn: "IdTransacao");
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Ofertas_Utilizadores_UtilizadorFk",
                         column: x => x.UtilizadorFk,
                         principalTable: "Utilizadores",
                         principalColumn: "IdUser",
-                        onDelete: ReferentialAction.NoAction);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -147,8 +89,7 @@ namespace FreeBooks.Data.Migrations
                     Editora = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Autor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AnuncioFK = table.Column<int>(type: "int", nullable: true),
-                    OfertaFK = table.Column<int>(type: "int", nullable: true),
-                    GaleriaFk = table.Column<int>(type: "int", nullable: false)
+                    OfertaFK = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,22 +100,56 @@ namespace FreeBooks.Data.Migrations
                         principalTable: "Anuncios",
                         principalColumn: "IdAnuncio");
                     table.ForeignKey(
-                        name: "FK_Livros_Galerias_GaleriaFk",
-                        column: x => x.GaleriaFk,
-                        principalTable: "Galerias",
-                        principalColumn: "IdGaleria",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Livros_Ofertas_OfertaFK",
                         column: x => x.OfertaFK,
                         principalTable: "Ofertas",
                         principalColumn: "IdOferta");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Anuncios_TransacaoFk",
-                table: "Anuncios",
-                column: "TransacaoFk");
+            migrationBuilder.CreateTable(
+                name: "Transacoes",
+                columns: table => new
+                {
+                    IdTransacao = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataTrasancao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AnuncioFK = table.Column<int>(type: "int", nullable: true),
+                    OfertaFk = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Transacoes", x => x.IdTransacao);
+                    table.ForeignKey(
+                        name: "FK_Transacoes_Anuncios_AnuncioFK",
+                        column: x => x.AnuncioFK,
+                        principalTable: "Anuncios",
+                        principalColumn: "IdAnuncio");
+                    table.ForeignKey(
+                        name: "FK_Transacoes_Ofertas_OfertaFk",
+                        column: x => x.OfertaFk,
+                        principalTable: "Ofertas",
+                        principalColumn: "IdOferta");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fotos",
+                columns: table => new
+                {
+                    IdFoto = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LivroFK = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fotos", x => x.IdFoto);
+                    table.ForeignKey(
+                        name: "FK_Fotos_Livros_LivroFK",
+                        column: x => x.LivroFK,
+                        principalTable: "Livros",
+                        principalColumn: "IdLivro",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Anuncios_UtilizadorFk",
@@ -182,19 +157,14 @@ namespace FreeBooks.Data.Migrations
                 column: "UtilizadorFk");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fotos_GaleriaFk",
+                name: "IX_Fotos_LivroFK",
                 table: "Fotos",
-                column: "GaleriaFk");
+                column: "LivroFK");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Livros_AnuncioFK",
                 table: "Livros",
                 column: "AnuncioFK");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Livros_GaleriaFk",
-                table: "Livros",
-                column: "GaleriaFk");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Livros_OfertaFK",
@@ -207,14 +177,19 @@ namespace FreeBooks.Data.Migrations
                 column: "AnuncioFk");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ofertas_TransacaoFk",
-                table: "Ofertas",
-                column: "TransacaoFk");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Ofertas_UtilizadorFk",
                 table: "Ofertas",
                 column: "UtilizadorFk");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transacoes_AnuncioFK",
+                table: "Transacoes",
+                column: "AnuncioFK");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transacoes_OfertaFk",
+                table: "Transacoes",
+                column: "OfertaFk");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -223,19 +198,16 @@ namespace FreeBooks.Data.Migrations
                 name: "Fotos");
 
             migrationBuilder.DropTable(
-                name: "Livros");
+                name: "Transacoes");
 
             migrationBuilder.DropTable(
-                name: "Galerias");
+                name: "Livros");
 
             migrationBuilder.DropTable(
                 name: "Ofertas");
 
             migrationBuilder.DropTable(
                 name: "Anuncios");
-
-            migrationBuilder.DropTable(
-                name: "Transacoes");
 
             migrationBuilder.DropTable(
                 name: "Utilizadores");
