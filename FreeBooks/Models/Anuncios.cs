@@ -6,11 +6,6 @@ namespace FreeBooks.Models
 {
     public class Anuncios
     {
-        public Anuncios()
-        {
-            Ofertas = new HashSet<Ofertas>();
-            Livros = new HashSet<Livros>();
-        }
         /// <summary>
         /// Chave Primaria do Anuncio
         /// </summary>
@@ -76,34 +71,22 @@ namespace FreeBooks.Models
         public Utilizadores Utilizador { get; set; }
 
         /// <summary>
-        /// Ligação ao Livro do Anunciado
-        /// </summary>
-        /*[Display(Name = "Fk Livro")]
-        [ForeignKey(nameof(Livro))]
-        public int LivroFk { get; set; }
-        public Livros Livro { get; set; }*/
-
-        /// <summary>
-        /// Ligação a Transação do Anunciado
-        /// </summary>
-        [Display(Name = "Fk Transacao")]
-        [ForeignKey(nameof(Transacao))]
-        public int? TransacaoFk { get; set; }
-        public Transacoes Transacao { get; set; }
-
-        /// <summary>
         /// Lista de Ofertas ao Anuncio
         /// </summary>
         [Display(Name = "Lista de Ofertas")]
-        public ICollection<Ofertas> Ofertas { get; set; }
-
+        public ICollection<Ofertas> Ofertas { get; set; } = new HashSet<Ofertas>();
 
         /// <summary>
         /// Lista de Livros Anunciados para troca
         /// </summary>
         [Display(Name = "Lista de Livros")]
-        public ICollection<Livros> Livros { get; set; }
+        public ICollection<Livros> Livros { get; set; } = new HashSet<Livros>();
 
+        /// <summary>
+        /// Lista de Transações associadas a um Anuncio
+        /// </summary>
+        [Display(Name = "Lista de Transações")]
+        public ICollection<Transacoes> Transacoes { get; set; } = new HashSet<Transacoes>();
     }
 }
 
