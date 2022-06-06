@@ -10,7 +10,7 @@ namespace FreeBooks.Models
         /// Id da Foto
         /// </summary>
         [Key]
-        //[Required]    
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Display(Name = "Id Foto")]
         public int IdFoto { get; set; }
 
@@ -19,16 +19,17 @@ namespace FreeBooks.Models
         /// </summary>
         //[Required]
         [Display(Name = "Foto")]
+        [FileExtensions()]
         public string Foto { get; set; }
 
         /// <summary>
-        /// Ligação da Foto com a Galeria a que pertence
+        /// Ligação da Foto com a Foto a que pertence
         /// </summary>
         //[Required]
-        [Display(Name = "Fk Galeria")]
-        [ForeignKey(nameof(Galeria))]
-        public int GaleriaFk { get; set; }
-        public Galerias Galeria { get; set; }
+        [Display(Name = "Fk Livro")]
+        [ForeignKey(nameof(Livro))]
+        public int LivroFk { get; set; }
+        public Livros Livro { get; set; }
     }
 }
 

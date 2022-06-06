@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Foto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Galeria)
+                @Html.DisplayNameFor(model => model.Livro)
             </th>
             <th></th>
         </tr>
@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Foto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Galeria.IdGaleria)
+                @Html.DisplayFor(modelItem => item.Livro.IdLivro)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdFoto">Edit</a> |

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FreeBooks.Models.Fotos>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Livro)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @* display item's Foto*@
+            @*
+            <td>
+                @Html.DisplayFor(modelItem => item.Foto)
+            </td>
+            *@
+            <td>
+                @* <partial name="Fotos/_IndexPartial" />*@
+
+                @* there are two different ways to access items data
+                    a) using HTML Helpers: @Html.DisplayFor(modelItem => item.Foto)
+                    b) using foreach internal variable: item
+                *@
+                <a href="~/Fotos/@item.Foto" target="_blank">
+                    <img src="~/Fotos/@item.Foto" alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)" height="50" asp-route-id="@item.IdFoto"/>
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Livro.IdLivro)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdFoto">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdFoto">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdFoto">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <asp:Button ID="Button1" runat="server" Text="Convert All Images to Byte" OnClick="Button1_Click" /> 
+</div>

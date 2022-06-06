@@ -1,0 +1,24 @@
+﻿@model IEnumerable<FreeBooks.Models.FotosView>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@foreach (var item in Model) {
+    <text>
+        @* there are two different ways to access items data
+            a) using HTML Helpers: @Html.DisplayFor(modelItem => item.Foto)
+            b) using foreach internal variable: item
+        *@
+        @if (!string.IsNullOrEmpty(item.Foto)) {
+            <a href="~/Fotos/@item.Foto" target="_blank">
+                <img src="~/Fotos/@item.Foto" alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)" height="50" asp-route-id="@item.ListaFotos"/>
+            </a>
+        }
+        else {
+            <img src="~/Fotos/@item.Foto" alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)" title="@item.Foto" height="50" asp-route-id="@item.ListaFotos"/>
+        }
+    </text>
+    
+}

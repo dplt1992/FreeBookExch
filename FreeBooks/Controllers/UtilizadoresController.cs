@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -54,7 +54,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUser,UserName,Password,Email,Foto,TipoUtilizador")] Utilizadores utilizadores)
+        public async Task<IActionResult> Create([Bind("IdUser,UserName,Email,Foto,TipoUtilizador")] Utilizadores utilizadores)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUser,UserName,Password,Email,Foto,TipoUtilizador")] Utilizadores utilizadores)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUser,UserName,Email,Foto,TipoUtilizador")] Utilizadores utilizadores)
         {
             if (id != utilizadores.IdUser)
             {

@@ -24,4 +24,7 @@
 	  <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
 	  <None Remove="Swashbuckle.AspNetCore" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Data\Migrations\" />
+	</ItemGroup>
 </Project>

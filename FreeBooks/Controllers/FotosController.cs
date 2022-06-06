@@ -22,7 +22,7 @@ namespace FreeBooks.Controllers
         // GET: Fotos
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Fotos.Include(f => f.Galeria);
+            var applicationDbContext = _context.Fotos.Include(f => f.Livro);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace FreeBooks.Controllers
             }
 
             var fotos = await _context.Fotos
-                .Include(f => f.Galeria)
+                .Include(f => f.Livro)
                 .FirstOrDefaultAsync(m => m.IdFoto == id);
             if (fotos == null)
             {
@@ -48,7 +48,7 @@ namespace FreeBooks.Controllers
         // GET: Fotos/Create
         public IActionResult Create()
         {
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria");
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdFoto,Foto,GaleriaFk")] Fotos fotos)
+        public async Task<IActionResult> Create([Bind("IdFoto,Foto,LivroFk")] Fotos fotos)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace FreeBooks.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", fotos.GaleriaFk);
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", fotos.LivroFk);
             return View(fotos);
         }
 
@@ -82,7 +82,7 @@ namespace FreeBooks.Controllers
             {
                 return NotFound();
             }
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", fotos.GaleriaFk);
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", fotos.LivroFk);
             return View(fotos);
         }
 
@@ -91,7 +91,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFoto,Foto,GaleriaFk")] Fotos fotos)
+        public async Task<IActionResult> Edit(int id, [Bind("IdFoto,Foto,LivroFk")] Fotos fotos)
         {
             if (id != fotos.IdFoto)
             {
@@ -118,7 +118,7 @@ namespace FreeBooks.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GaleriaFk"] = new SelectList(_context.Galerias, "IdGaleria", "IdGaleria", fotos.GaleriaFk);
+            ViewData["LivroFk"] = new SelectList(_context.Livros, "IdLivro", "IdLivro", fotos.LivroFk);
             return View(fotos);
         }
 
@@ -131,7 +131,7 @@ namespace FreeBooks.Controllers
             }
 
             var fotos = await _context.Fotos
-                .Include(f => f.Galeria)
+                .Include(f => f.Livro)
                 .FirstOrDefaultAsync(m => m.IdFoto == id);
             if (fotos == null)
             {

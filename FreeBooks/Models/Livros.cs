@@ -57,10 +57,10 @@ namespace FreeBooks.Models
         public Ofertas Oferta { get; set; }
 
         /// <summary>
-        /// Lista das Galerias do Livro
+        /// Lista das Fotos do Livro
         /// </summary>
-        [Display(Name = "Lista de Galerias")]
-        public ICollection<Galerias> Galerias { get; set; }
+        [Display(Name = "Lista de Fotos")]
+        public ICollection<Fotos> ListaFotos { get; set; }
     }
 }
 
