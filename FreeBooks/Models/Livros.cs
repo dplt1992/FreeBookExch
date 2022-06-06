@@ -57,12 +57,11 @@ namespace FreeBooks.Models
         public Ofertas Oferta { get; set; }
 
         /// <summary>
-        /// Ligaçãoc com a Galeria do Livro
+        /// Lista de fotos associdas a um Livro
         /// </summary>
-        [Display(Name = "Fk Galeria")]
-        [ForeignKey(nameof(Galeria))]
-        public int GaleriaFk { get; set; }
-        public Galerias Galeria { get; set; }
+        [Display(Name = "Fotos do Livro")]
+        public ICollection<Fotos> Fotos { get; set; }
+
     }
 }
 
