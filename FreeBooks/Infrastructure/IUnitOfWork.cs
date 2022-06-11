@@ -8,36 +8,14 @@
 // ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 // ////////////////////////////////////////////////////////////////////////////
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace FreeBooks.Models
+namespace FreeBooks.Infrastructure
 {
-    public class Fotos
+    public interface IUnitOfWork
     {
         /// <summary>
-        /// Id da Foto
+        /// Método abstrato para guardar um ficheiro no servidor
         /// </summary>
-        [Key]
-        //[Required]    
-        [Display(Name = "Id Foto")]
-        public int IdFoto { get; set; }
-
-        /// <summary>
-        /// Foto
-        /// </summary>
-        //[Required]
-        [Display(Name = "Foto")]
-        public string Foto { get; set; }
-
-        /// <summary>
-        /// Referência para a classe Livros
-        /// </summary>
-        //[Required]
-        [Display(Name = "Fk Livros")]
-        [ForeignKey(nameof(Livros))]
-        public int LivroFK { get; set; }
-        public Livros Livros { get; set; }
+        /// <param name="file">Ficheiro recebido do browser</param>
+        void SaveFile(IFormFile file);
     }
 }
-

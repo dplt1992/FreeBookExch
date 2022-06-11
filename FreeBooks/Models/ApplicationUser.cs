@@ -9,35 +9,32 @@
 // ////////////////////////////////////////////////////////////////////////////
 
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
+using Microsoft.AspNetCore.Identity;
 
 namespace FreeBooks.Models
 {
-    public class Fotos
+    /// <summary>
+    /// Representa os dados dos Utilizadores na tabela AspNetUsers
+    /// </summary>
+    public class ApplicationUser : IdentityUser
     {
         /// <summary>
-        /// Id da Foto
+        /// Nome do utiliazador a ser usado na interface
         /// </summary>
-        [Key]
-        //[Required]    
-        [Display(Name = "Id Foto")]
-        public int IdFoto { get; set; }
+        [Required]
+        public string Name { get; set; }
 
         /// <summary>
-        /// Foto
+        /// Date de registo do utilizador
         /// </summary>
-        //[Required]
-        [Display(Name = "Foto")]
-        public string Foto { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime RegistrationDate { get; set; }
 
         /// <summary>
-        /// Referência para a classe Livros
+        /// Imagem da conta para o Utilizador
         /// </summary>
-        //[Required]
-        [Display(Name = "Fk Livros")]
-        [ForeignKey(nameof(Livros))]
-        public int LivroFK { get; set; }
-        public Livros Livros { get; set; }
+        public string ImagePath { get; set; }
     }
 }
-

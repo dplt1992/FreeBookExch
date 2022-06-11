@@ -24,4 +24,10 @@
 	  <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
 	  <None Remove="Swashbuckle.AspNetCore" />
 	</ItemGroup>
+	<ItemGroup>
+	  <EditorConfigFiles Remove="C:\Users\dplt\Source\Repos\FreeBookExch\FreeBooks\.editorconfig" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Include="C:\Users\dplt\Source\Repos\FreeBookExch\FreeBooks\.editorconfig" />
+	</ItemGroup>
 </Project>
