@@ -4,56 +4,58 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Foto)
+                Lista das Imagens do Livro:
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Livros)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-             <td>
+        @foreach (var item in Model) {
+            @if(item == Model.First())
+            {
+                <tr>
+                    <td>
+                        <a asp-area="" asp-controller="Fotos" asp-action="CreateFotos"  asp-route-id="@item.Livros.IdLivro" >
+                            <h2>+ Foto</h2>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="Fotos" asp-action="CreateGalerias"  asp-route-id="@item.Livros.IdLivro" >
+                            <h2>+ Lista de Fotos</h2>
+                        </a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                 <td>
                     @* display item's Foto*@
-                    @* there are two different ways to access items data
-                        a) using HTML Helpers: @Html.DisplayFor(modelItem => item.Foto)
-                        b) using foreach internal variable: item
-                    *@
                     @if (!string.IsNullOrEmpty(item.Foto)) {
                         <a href="~/Fotos/@item.Foto" target="_blank">
                             <img src="~/Fotos/@item.Foto"
-                         alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
-                         title="@item.Foto"
-                         height="50" />
+                            alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
+                            title="@item.Foto"
+                            height="50" />
                         </a>
                     }
                     else {
                         <img src="~/Fotos/@item.Foto"
-                     alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
-                     title="@item.Foto"
-                     height="50" />
+                        alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
+                        title="@item.Foto"
+                        height="50" />
                     }
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Livros.IdLivro)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdFoto">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdFoto">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdFoto">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -9,7 +9,7 @@ namespace FreeBooks.Models
         /// <summary>
         /// Ficheiro da Foto
         /// </summary>
-        public List<IFormFile> ListaFotoFiles { get; set; }
+        public List<IFormFile> LivroFotos { get; set; }
     }
 }
 

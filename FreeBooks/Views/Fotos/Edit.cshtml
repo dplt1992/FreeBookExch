@@ -13,13 +13,13 @@
         <form asp-action="Edit" enctype="multipart/form-data" method="post" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdFoto" />
-            @*<div class="form-group">
-                <label asp-for="Foto" class="control-label"></label>
-                <input asp-for="Foto" class="form-control" />
-                <span asp-validation-for="Foto" class="text-danger"></span>
-            </div>*@
-            <img src="~/Fotos/@Model.Foto" alt="Foto of @Model.Foto" title="@Model.Foto" height="100" />
-
+            <div class="form-group">
+                <table class="FotosLivro" >
+                    <tr>
+                        <img src="~/Fotos/@Model.Foto" alt="Foto of @Model.Foto" title="@Model.Foto" height="100" />
+                    </tr>
+                </table>
+                <input multiple type="file" name="Foto" class="form-control" accept=".jpg,.png" />
             <div class="form-group">
                 <label asp-for="LivroFK" class="control-label"></label>
                 <select asp-for="LivroFK" class="form-control" asp-items="ViewBag.LivroFK"></select>
@@ -33,7 +33,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index"  asp-route-id="@Model.LivroFK" >Back to List</a>
 </div>
 
 @section Scripts {

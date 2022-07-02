@@ -16,6 +16,7 @@ namespace FreeBooks.Controllers
         private readonly ApplicationDbContext _context;
 
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public LivrosController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
@@ -67,9 +68,16 @@ namespace FreeBooks.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK")] Livros livros, LivrosViewModel fotoModel)
         {
-
-            //Ler imagens e guarda nomes das imagens do livro
-            List<string> galeria = await UploadFotos(fotoModel.ListFilesFotos);
+            List<string> galeria = new List<string>();
+            if (fotoModel.LivroFotos == null)
+            {
+                galeria.Add(getDefaultImg());
+            }
+            else
+            {
+                //Ler imagens e guarda nomes das imagens do livro
+                galeria = await UploadFotos(fotoModel.LivroFotos);
+            }
 
             if (ModelState.IsValid)
             {
@@ -93,6 +101,10 @@ namespace FreeBooks.Controllers
             {
                 return NotFound();
             }
+            
+            var fotos = await _context.Fotos
+                .Where(foto=> foto.LivroFK == id)
+                .ToListAsync();
 
             var livros = await _context.Livros.FindAsync(id);
             if (livros == null)
@@ -116,7 +128,7 @@ namespace FreeBooks.Controllers
                 return NotFound();
             }
             //Lista com todas as Fotos do Livro
-            List<string> allRootImages = getFotos(livro, fotoModel.ListFilesFotos);
+            List<string> allRootImages = getFotos(livro, fotoModel.LivroFotos);
 
             var LivrosIDPreviouslyStored = HttpContext.Session.GetInt32("IdLivro");
 
@@ -138,7 +150,7 @@ namespace FreeBooks.Controllers
                 return RedirectToAction("Index");
             }
             //Ler nomes das imagens do livro
-            List<string> galeria = await UploadFotos(fotoModel.ListFilesFotos);
+            List<string> galeria = await UploadFotos(fotoModel.LivroFotos);
 
             if (ModelState.IsValid) {
                 //Adicionar o livro a base de dados
@@ -364,7 +376,7 @@ namespace FreeBooks.Controllers
         {
             List<Fotos> listaFotos = new List<Fotos>();
             //fotos.Foto = new List<string>();
-            foreach (IFormFile img in fotoModel.ListFilesFotos)
+            foreach (IFormFile img in fotoModel.LivroFotos)
             {
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, "Fotos", img.FileName);
                 var stream = new FileStream(path, FileMode.Create); //erro ir buscar caminho
@@ -380,5 +392,18 @@ namespace FreeBooks.Controllers
         }
         /************************/
         /************************/
+
+        public ActionResult getFilesToEdit(Livros livro, LivrosViewModel fotoModel)
+        {
+            List<string> allRootImages = getFotos(livro, fotoModel.LivroFotos);
+
+            ViewData["Message"] = allRootImages;
+            return View();
+        }
+
+        public string getDefaultImg()
+        {
+            return "default" + Guid.NewGuid().ToString() + ".png";
+        }
     }
 }

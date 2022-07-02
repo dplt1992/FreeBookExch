@@ -7,6 +7,9 @@
 		<UserSecretsId>aspnet-FreeBooks-4495AC02-61DB-4B32-8827-576080F3E7B0</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
+	  <Content Remove="Views\Fotos\_FotosTablePartial.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.5" />
