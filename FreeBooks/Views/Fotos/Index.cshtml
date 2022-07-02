@@ -24,9 +24,27 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Foto)
-            </td>
+             <td>
+                    @* display item's Foto*@
+                    @* there are two different ways to access items data
+                        a) using HTML Helpers: @Html.DisplayFor(modelItem => item.Foto)
+                        b) using foreach internal variable: item
+                    *@
+                    @if (!string.IsNullOrEmpty(item.Foto)) {
+                        <a href="~/Fotos/@item.Foto" target="_blank">
+                            <img src="~/Fotos/@item.Foto"
+                         alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
+                         title="@item.Foto"
+                         height="50" />
+                        </a>
+                    }
+                    else {
+                        <img src="~/Fotos/@item.Foto"
+                     alt="Foto of item: @Html.DisplayFor(modelItem => item.Foto)"
+                     title="@item.Foto"
+                     height="50" />
+                    }
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Livros.IdLivro)
             </td>

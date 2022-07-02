@@ -1,0 +1,22 @@
+﻿@model FreeBooks.Models.Livros
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<hr />
+<h4>Fotos</h4>
+<div class="form-group">
+    <table>
+        @foreach (var img in Model.Fotos)
+        {
+            <tr>
+                <img src="~/Fotos/@img.Foto" with="64" height="64" alt="@img.Foto" title="@img.Foto">
+            </tr>
+        }
+    </table>
+</div>
+<hr />
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -54,6 +54,15 @@
         </dd>
     </dl>
 </div>
+<table>
+    @foreach (var img in Model.Fotos)
+    {
+        <tr>
+            <img src="~/Fotos/@img.Foto" with="64" height="64" alt="@img.Foto" title="@img.Foto">
+        </tr>
+    }
+</table>
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.IdLivro">Edit</a> |
     <a asp-action="Index">Back to List</a>
