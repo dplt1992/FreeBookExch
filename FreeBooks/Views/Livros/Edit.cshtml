@@ -48,6 +48,10 @@
                 <select asp-for="OfertaFK" class="form-control" asp-items="ViewBag.OfertaFK"></select>
                 <span asp-validation-for="OfertaFK" class="text-danger"></span>
             </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
             <hr />
             <h4>
                 Imagens do Livro:
@@ -72,15 +76,12 @@
                 </h4>
             </div>
             <hr />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {

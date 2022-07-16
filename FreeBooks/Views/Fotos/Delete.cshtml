@@ -28,6 +28,7 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdFoto" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-area="" asp-controller="Fotos" asp-action="Index"  asp-route-id="@Model.LivroFK" >Voltar</a>
+
     </form>
 </div>
