@@ -101,12 +101,18 @@ namespace FreeBooks.Controllers
             {
                 return NotFound();
             }
-            
+
             var fotos = await _context.Fotos
                 .Where(foto=> foto.LivroFK == id)
                 .ToListAsync();
 
-            var livros = await _context.Livros.FindAsync(id);
+            var livros = await _context.Livros
+                .Include(a => a.Fotos)
+                .Include(l => l.Anuncio)
+                .Include(l => l.Oferta)
+                .FirstOrDefaultAsync(m => m.IdLivro == id);
+            
+            //var livros = await _context.Livros.FindAsync(id);
             if (livros == null)
             {
                 return NotFound();

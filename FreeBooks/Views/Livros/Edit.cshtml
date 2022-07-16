@@ -48,13 +48,30 @@
                 <select asp-for="OfertaFK" class="form-control" asp-items="ViewBag.OfertaFK"></select>
                 <span asp-validation-for="OfertaFK" class="text-danger"></span>
             </div>
+            <hr />
+            <h4>
+                Imagens do Livro:
+            </h4>
+            <hr />
+            <div class="form-group">
+                <table>
+                    @foreach (var img in Model.Fotos)
+                    {
+                        <tr>
+                            <img src="~/Fotos/@img.Foto" with="64" height="64" alt="@img.Foto" title="@img.Foto">
+                        </tr>
+                    }
+                </table>
+            </div>
+            <hr />
             <div class="form-group">
                 <h4>
                     <a asp-area="" asp-controller="Fotos" asp-action="Index"  asp-route-id="@Model.IdLivro" >
-                        Editar Imagens da Galeria:
+                        Editar as Imagens do Livro
                     </a>
                 </h4>
             </div>
+            <hr />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

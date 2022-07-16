@@ -17,6 +17,7 @@
     </thead>
     <tbody>
         @foreach (var item in Model) {
+            @*
             @if(item == Model.First())
             {
                 <tr>
@@ -32,6 +33,7 @@
                     </td>
                 </tr>
             }
+            *@
             <tr>
                  <td>
                     @* display item's Foto*@
@@ -51,11 +53,15 @@
                     }
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Edit</a>
+                     | <a asp-action="Details" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Details</a>
+                    @* | <a asp-action="Delete" asp-route-id="@item.IdFoto" asp-route-id="@item.LivroFK" >Delete</a> *@
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<div>
+    <a  asp-area="" asp-controller="Livros" asp-action="Index">Back to List</a>
+</div>
