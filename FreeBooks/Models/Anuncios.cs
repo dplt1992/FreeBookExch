@@ -42,6 +42,14 @@ namespace FreeBooks.Models
         public string Descricao { get; set; }
 
         /// <summary>
+        /// Descrição a oferta
+        /// </summary>
+        [StringLength(100, ErrorMessage = "Não pode ter mais do que {1} caráteres.")]
+        //[RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
+        [Display(Name = "Preço")]
+        public decimal Preco { get; set; }
+
+        /// <summary>
         /// Estado do Anuncio
         /// </summary>
         [Display(Name = "Estado")]

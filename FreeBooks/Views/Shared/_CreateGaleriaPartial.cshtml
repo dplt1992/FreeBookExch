@@ -1,0 +1,17 @@
+﻿@model FreeBooks.Models.LivrosViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<hr />
+<h4>Fotos</h4>
+<div class="form-group">
+    <label asp-for="LivroFotos" class="control-label"></label>
+    <input multiple asp-for="LivroFotos" class="form-control" />
+    <span asp-validation-for="LivroFotos" class="text-danger"></span>
+</div>
+<hr />
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

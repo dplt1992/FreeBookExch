@@ -18,10 +18,31 @@ namespace FreeBooks.Models
         /// Descrição a oferta
         /// </summary>
         [StringLength(100, ErrorMessage = "Não pode ter mais do que {1} caráteres.")]
-        [RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
+        //[RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
         [Display(Name = "Nome")]
         public string Descricao { get; set; }
 
+        /// <summary>
+        /// Descrição a oferta
+        /// </summary>
+        [StringLength(100, ErrorMessage = "Não pode ter mais do que {1} caráteres.")]
+        //[RegularExpression("[A-ZÁÉÍÓÚÀÈÌÒÙa-zçáéíóúàèìòùãõäëïöüâêîôûñ '- ]+", ErrorMessage = "O {0} ter  menso do que {1} carateres.")]
+        [Display(Name = "Montante")]
+        public decimal Montante { get; set; }
+
+        /// <summary>
+        /// Estado do Anuncio
+        /// </summary>
+        [Display(Name = "Estado")]
+        //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
+        public bool Estado { get; set; }
+
+        /// <summary>
+        /// Data Lancamento / inicio do Anuncio
+        /// </summary>
+        [Display(Name = "Data Limite")]
+        //[Required(ErrorMessage = "O {0} é de preenchimento obrigatório")]
+        public DateTime DataLancamento { get; set; }
 
         /// <summary>
         /// Faz a ligação ao Anuncio ao qual foi realizada a Oferta

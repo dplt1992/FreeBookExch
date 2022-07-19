@@ -1,0 +1,62 @@
+﻿@model FreeBooks.Models.Livros
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<h4>Livros</h4>
+<hr />
+<div>
+    <input type="hidden" asp-for="IdLivro" />
+    <div class="form-group">
+        <label asp-for="Titulo" class="control-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Descricao" class="control-label"></label>
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Edicao" class="control-label"></label>
+        <input asp-for="Edicao" class="form-control" />
+        <span asp-validation-for="Edicao" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Editora" class="control-label"></label>
+        <input asp-for="Editora" class="form-control" />
+        <span asp-validation-for="Editora" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Autor" class="control-label"></label>
+        <input asp-for="Autor" class="form-control" />
+        <span asp-validation-for="Autor" class="text-danger"></span>
+    </div>
+    <hr />
+    <h4>
+        Imagens do Livro:
+    </h4>
+    <hr />
+    <div class="form-group">
+        <table>
+            @foreach (var img in Model.Fotos)
+            {
+                <tr>
+                    <img src="~/Fotos/@img.Foto" with="64" height="64" alt="@img.Foto" title="@img.Foto">
+                </tr>
+            }
+        </table>
+    </div>
+    <hr />
+    <div class="form-group">
+        <h4>
+            <a asp-area="" asp-controller="Fotos" asp-action="Index"  asp-route-id="@Model.IdLivro" >
+                Editar as Imagens do Livro
+            </a>
+        </h4>
+    </div>
+    <hr />
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

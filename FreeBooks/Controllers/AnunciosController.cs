@@ -14,9 +14,18 @@ namespace FreeBooks.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public AnunciosController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        
+        /// <summary>
+        /// LivrosController LC;
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="webHostEnvironment"></param>
+
+        public AnunciosController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Anuncios
@@ -61,7 +70,7 @@ namespace FreeBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(anuncios);
+                 _context.Add(anuncios);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -164,5 +173,51 @@ namespace FreeBooks.Controllers
         {
           return _context.Anuncios.Any(e => e.IdAnuncio == id);
         }
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+
+
+        public Livros addLivroToDB(string titulo, string desc, int edicao, string editora, string autor, int anuncio)
+        {
+            return new Livros
+            {
+                Titulo = titulo,
+                Descricao = desc,
+                Edicao = edicao,
+                Editora = editora,
+                Autor = autor,
+                AnuncioFK = anuncio
+            };
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        
+        public Anuncios addAnuncioToDB(string titulo, string tipo, string disc, Decimal price, DateTime dataExp, Utilizadores user)
+        {
+            return new Anuncios
+            {
+                Titulo = titulo,
+                Tipo = tipo,
+                Descricao = disc,
+                Preco = price,
+
+                DataLancamento = DateTime.Now,
+                DataExpiracao = dataExp,
+
+                Utilizador = user
+
+            };
+        }
+
+        /////////////////////////////////////////////////////////////////////////////////////
+        
+        /////////////////////////////////////////////////////////////////////////////////////
+        
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+
     }
 }
