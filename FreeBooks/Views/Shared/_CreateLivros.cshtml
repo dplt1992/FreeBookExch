@@ -3,37 +3,37 @@
 @{
     ViewData["Title"] = "Create";
 }
+
 <h4>Livros</h4>
 <hr />
 <div>
-    <div class="form-group">
-        <label asp-for="Titulo" class="control-label"></label>
-        <input asp-for="Titulo" class="form-control" />
-        <span asp-validation-for="Titulo" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Descricao" class="control-label"></label>
-        <input asp-for="Descricao" class="form-control" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Edicao" class="control-label"></label>
-        <input asp-for="Edicao" class="form-control" />
-        <span asp-validation-for="Edicao" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Editora" class="control-label"></label>
-        <input asp-for="Editora" class="form-control" />
-        <span asp-validation-for="Editora" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Autor" class="control-label"></label>
-        <input asp-for="Autor" class="form-control" />
-        <span asp-validation-for="Autor" class="text-danger"></span>
-    </div>
-
-    <partial name="_CreateLivros" />
+    <form asp-action="Create" enctype="multipart/form-data" method="post" >
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Titulo" class="control-label"></label>
+            <input asp-for="Titulo" class="form-control" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <input asp-for="Descricao" class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Edicao" class="control-label"></label>
+            <input asp-for="Edicao" class="form-control" />
+            <span asp-validation-for="Edicao" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Editora" class="control-label"></label>
+            <input asp-for="Editora" class="form-control" />
+            <span asp-validation-for="Editora" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Autor" class="control-label"></label>
+            <input asp-for="Autor" class="form-control" />
+            <span asp-validation-for="Autor" class="text-danger"></span>
+        </div>
+        <partial name="_CreateGaleriaPartial" />
+    </form>
 </div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

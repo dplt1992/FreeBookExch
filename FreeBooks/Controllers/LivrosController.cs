@@ -54,7 +54,7 @@ namespace FreeBooks.Controllers
 
 
         // GET: Livros/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
             ViewData["AnuncioFK"] = new SelectList(_context.Anuncios, "IdAnuncio", "IdAnuncio");
             ViewData["OfertaFK"] = new SelectList(_context.Ofertas, "IdOferta", "IdOferta");
@@ -66,7 +66,7 @@ namespace FreeBooks.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK")] Livros livros, LivrosViewModel fotoModel)
+        public async Task<IActionResult> Create([Bind("IdLivro,Titulo,Descricao,Edicao,Editora,Autor,AnuncioFK,OfertaFK")] Livros livros, LivrosViewModel fotoModel, int? idAnucio)
         {
             List<string> galeria = new List<string>();
             if (fotoModel.LivroFotos == null)
@@ -82,7 +82,7 @@ namespace FreeBooks.Controllers
             if (ModelState.IsValid)
             {
                 //Adicionar o livro a base de dados
-                livros = addLivroToDB(livros.Titulo, livros.Descricao, livros.Edicao, livros.Editora, livros.Autor, livros.AnuncioFK, livros.OfertaFK);
+                livros = addLivroToDB(livros.Titulo, livros.Descricao, livros.Edicao, livros.Editora, livros.Autor, idAnucio, livros.OfertaFK);
                 //salvar imagens na base de dados das Fotos
                 List<Fotos> listaFotos = SaveFileToDB(livros,fotoModel);
                 await _context.SaveChangesAsync();

@@ -32,20 +32,21 @@
                     <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
                 </label>
             </div>
+            
+            <div class="form-group">
+                <label asp-for="Preco" class="control-label"></label>
+                <input asp-for="Preco" class="form-control" />
+                <span asp-validation-for="Preco" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="DataLancamento" class="control-label"></label>
-                <input asp-for="DataLancamento" class="form-control" />
-                <span asp-validation-for="DataLancamento" class="text-danger"></span>
+                <label asp-for="DataLancamento" class="form-control" />
+                <span asp-validation-for="DataLancamento" class="orm-control"></span>
             </div>
             <div class="form-group">
                 <label asp-for="DataExpiracao" class="control-label"></label>
                 <input asp-for="DataExpiracao" class="form-control" />
                 <span asp-validation-for="DataExpiracao" class="text-danger"></span>
-            </div>
-            <div>
-                <partial>
-                    <partial name="_CreateLivros" />
-                </partial>
             </div>
             <div class="form-group">
                 <label asp-for="UtilizadorFk" class="control-label"></label>
@@ -54,14 +55,39 @@
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
+            @*
+            <div>
+                <a asp-area="" asp-controller="Livros" asp-action="Create">+ Livro</a>
+            </div>
+            *@
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Voltar</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@*
+    Em ultimo caso adicionar links para as paginas
+    junto do link de voltar
+
+
+    Trocar os <a asp-action="Index">Voltar</a> a para buton 
+
+    Utilizar isto para trocar dados Ids
+    <a asp-area="" asp-controller="Fotos" asp-action="Index"  asp-route-id="@Model.LivroFK" >Voltar</a>
+
+    verificar controllers
+
+    Efetuar buscas de datas automaticas, e outros dados
+
+
+    Verificar se consigo guardar, representar as transações
+
+    Ver dos Users do Daniel Trindade
+
+
+    React
+*@
